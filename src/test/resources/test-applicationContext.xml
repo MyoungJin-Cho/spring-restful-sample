@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+         http://www.springframework.org/schema/oxm 
+        http://www.springframework.org/schema/oxm/spring-oxm-3.2.xsd
+         http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="io.jubilie.restful.sample" />
+
+	<!-- mvc 관련 annotation -->
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/**" location="/" />
+	
+	<util:properties id="config" location="classpath:sample.properties"/>
+	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.InternalResourceView"
+		p:suffix=".jsp" p:cache="false" />
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter" >
+	                <constructor-arg>
+	                    <bean class="java.nio.charset.Charset" factory-method="forName">
+	                        <constructor-arg value="UTF-8" />
+	                    </bean>
+	                </constructor-arg>
+                </bean>
+                <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+                <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"
+                    p:marshaller-ref="jaxb2Marshaller" p:unmarshaller-ref="jaxb2Marshaller" />
+            </list>
+        </property>
+        <constructor-arg>
+            <bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+                <property name="readTimeout" value="30000" />
+                <property name="connectTimeout" value="30000" />
+            </bean>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="packagesToScan" value="io.jubilie.restful.sample"></property>
+    </bean>
+    <!-- 
+    <bean id="jsonMessageConverter" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"/>
+     -->
+     
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"></bean>
+</beans>

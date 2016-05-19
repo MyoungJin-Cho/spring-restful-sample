@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+	</context-param>
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>sample</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>sample</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>400</error-code> <!-- 잘못된 요청 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>401</error-code> <!-- 권한 없음 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code> <!-- 금지됨 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code> <!-- 찾을 수 없음 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code> <!-- 허용되지 않는 방법 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>406</error-code> <!-- 허용되지 않음 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>413</error-code> <!-- 요청 속성이 너무 큼 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>414</error-code> <!-- 요청 URI가 너무 긺 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>415</error-code> <!-- 지원되지 않는 미디어 유형 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code> <!-- 내부 서버 오류 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>501</error-code> <!-- 구현되지 않음 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>502</error-code> <!-- 불량 게이트웨이 -->
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>503</error-code> <!-- 서비스를 사용할 수 없음 -->
+		<location>/error.jsp</location>
+	</error-page>
+
+</web-app>
