@@ -20,12 +20,23 @@ public class SampleApiClientTest {
 	private SampleApiClient apiClient;
 	
 	@Test
-	public void testLogin() {
+	public void testUser() {
+		UserRequest request = new UserRequest();
+		String id = "id@jubilie.io";
+		request.setId(id);
+		request.setName("jubilie");
 		
-		String id = "jubilie@naver.com";
-		String password = "jewii3ri";
-		LoginResponse loginResponse = apiClient.login(id, password);
-		logger.info(loginResponse.toString());
-	}
+		UserResponse createResponse = apiClient.createUser(request);
+		logger.debug(createResponse.toString());
 
+		request.setName("rename jubilie");
+		UserResponse updateResponse = apiClient.updateUser(request);
+		logger.debug(updateResponse.toString());
+		
+		UserResponse getResponse = apiClient.getUser(id);
+		logger.debug(getResponse.toString());
+		
+		UserResponse deleteResponse = apiClient.deleteUser(id);
+		logger.debug(deleteResponse.toString());
+	}
 }
