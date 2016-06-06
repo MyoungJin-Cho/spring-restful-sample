@@ -22,58 +22,56 @@ import com.google.gson.Gson;
 @RequestMapping
 public class SampleApiServer {
 
-	protected Logger logger = LoggerFactory.getLogger(getClass());
-
-	private Gson gson = new Gson();
-	
-	@RequestMapping(value = "/user", method= RequestMethod.POST)
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public String createUser(@RequestBody UserRequest userRequest, 
-			HttpServletRequest request, HttpServletResponse response) {
-		
-		logger.debug("[SampleApiServer] [" + request.getMethod() + "] " + userRequest.toString());
-		
-		UserResponse userResponse = new UserResponse();
-		userResponse.setLoginToken(UUID.randomUUID().toString());
-	    return gson.toJson(userResponse);
-	}
-	
-	@RequestMapping(value = "/user", method= RequestMethod.PUT)
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public String updateUser(@RequestBody UserRequest userRequest, 
-			HttpServletRequest request, HttpServletResponse response) {
-		
-		logger.debug("[SampleApiServer] [" + request.getMethod() + "] " + userRequest.toString());
-		
-		UserResponse userResponse = new UserResponse();
-		userResponse.setLoginToken(UUID.randomUUID().toString());
-	    return gson.toJson(userResponse);
-	}
-	
-	@RequestMapping(value = "/user/{id}", method= RequestMethod.GET)
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public String selectUser(@PathVariable String id, 
-			HttpServletRequest request, HttpServletResponse response) {
-		
-		logger.debug("[SampleApiServer] [" + request.getMethod() + "] id:" + id);
-		
-		UserResponse userResponse = new UserResponse();
-		userResponse.setLoginToken(UUID.randomUUID().toString());
-	    return gson.toJson(userResponse);
-	}
-	
-	@RequestMapping(value = "/user/{id}", method= RequestMethod.DELETE)
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	public String deleteUser(@PathVariable String id, 
-			HttpServletRequest request, HttpServletResponse response) {
-		
-		logger.debug("[SampleApiServer] [" + request.getMethod() + "] id:" + id);
-		
-		UserResponse userResponse = new UserResponse();
-	    return gson.toJson(userResponse);
-	}
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+    
+    private Gson gson = new Gson();
+    
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public String createUser(@RequestBody UserRequest userRequest, HttpServletRequest request,
+    		HttpServletResponse response) {
+    
+        logger.debug("[SampleApiServer] [" + request.getMethod() + "] " + userRequest.toString());
+        
+        UserResponse userResponse = new UserResponse();
+        userResponse.setLoginToken(UUID.randomUUID().toString());
+        return gson.toJson(userResponse);
+    }
+    
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public String updateUser(@RequestBody UserRequest userRequest, HttpServletRequest request,
+    		HttpServletResponse response) {
+    
+        logger.debug("[SampleApiServer] [" + request.getMethod() + "] " + userRequest.toString());
+        
+        UserResponse userResponse = new UserResponse();
+        userResponse.setLoginToken(UUID.randomUUID().toString());
+        return gson.toJson(userResponse);
+    }
+    
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public String selectUser(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
+    
+        logger.debug("[SampleApiServer] [" + request.getMethod() + "] id:" + id);
+        
+        UserResponse userResponse = new UserResponse();
+        userResponse.setLoginToken(UUID.randomUUID().toString());
+        return gson.toJson(userResponse);
+    }
+    
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteUser(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
+    
+        logger.debug("[SampleApiServer] [" + request.getMethod() + "] id:" + id);
+        
+        UserResponse userResponse = new UserResponse();
+        return gson.toJson(userResponse);
+    }
 }
